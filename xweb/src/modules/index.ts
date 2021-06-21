@@ -1,16 +1,9 @@
-<template>
-  <h1>{{ msg }}</h1>
-  <button @click="inCrement"> count is: </button>
-  <p>{{ count }}</p>
-</template>
-
-<script>
 import { defineComponent, computed } from 'vue'
 import { useStore } from 'vuex'
 import { key } from '@/store'
 
 export default defineComponent({
-  name: 'HelloWorld',
+  name: 'Index',
   props: {
     msg: {
       type: String,
@@ -29,5 +22,4 @@ export default defineComponent({
       inCrement
     }
   }
-})
-</script>
+});
