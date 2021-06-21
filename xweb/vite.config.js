@@ -3,6 +3,13 @@ import vue from '@vitejs/plugin-vue'
 import styleImport from 'vite-plugin-style-import'
 import path from 'path'
 
+import MonacoEditorNlsPlugin, {
+  esbuildPluginMonacoEditorNls,
+  Languages
+} from 'vite-plugin-monaco-editor-nls'
+
+const MonacoEditorPrefix = `monaco-editor/esm/vs`
+
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
@@ -21,7 +28,8 @@ export default defineConfig({
           }
         }
       ]
-    })
+    }),
+    MonacoEditorNlsPlugin({ locale: Languages.zh_hans })
   ],
   server: {
     host: '0.0.0.0'
@@ -42,6 +50,29 @@ export default defineConfig({
       com: path.resolve(__dirname, './src/components'),
       store: path.resolve(__dirname, './src/store'),
       mixins: path.resolve(__dirname, './src/mixins')
+    }
+  },
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          jsonWorker: [`${MonacoEditorPrefix}/language/json/json.worker`],
+          cssWorker: [`${MonacoEditorPrefix}/language/css/css.worker`],
+          htmlWorker: [`${MonacoEditorPrefix}/language/html/html.worker`],
+          tsWorker: [`${MonacoEditorPrefix}/language/typescript/ts.worker`],
+          editorWorker: [`${MonacoEditorPrefix}/editor/editor.worker`]
+        }
+      }
+    }
+  },
+  optimizeDeps: {
+    /** vite >= 2.3.0 */
+    esbuildOptions: {
+      plugins: [
+        esbuildPluginMonacoEditorNls({
+          locale: Languages.zh_hans
+        })
+      ]
     }
   }
 })

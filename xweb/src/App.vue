@@ -8,8 +8,8 @@
         <el-aside width="200px">
           <div>
             <el-menu :default-active="this.$route.path" router mode="vertical">
-              <el-menu-item v-for="(item, i) in navList" :key="i" :index="item.name">
-                {{ item.navItem }}
+              <el-menu-item v-for="(item, i) in navList" :key="i" :index="item.url">
+                {{ item.name }}
               </el-menu-item>
             </el-menu>
           </div>
@@ -31,7 +31,5 @@ body {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
 }
 </style>

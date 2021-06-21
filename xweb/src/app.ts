@@ -5,8 +5,9 @@ export default defineComponent({
   components: {},
   setup() {
     const navList = [
-      {name: '/', navItem: '首页'},
-      {name: '/about', navItem: '关于'},
+      { url: '/', name: '首页' },
+      { url: '/about', name: '关于' },
+      { url: '/editor', name: 'Editor' }
     ]
 
     return { navList }
