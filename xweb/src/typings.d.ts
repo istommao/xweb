@@ -12,12 +12,6 @@ declare module '*.tiff';
 declare module 'omit.js';
 
 type Environment = 'production' | 'development' | 'test' | 'pre' | 'staging';
-
-/**
- * 给 process.env 补充类型声明
- * @author  Jerry <superzcj_001@163.com>
- * @since   2020-11-19 16:21:12
- */
 declare namespace __WebpackModuleApi {
   interface NodeProcess {
     env: {
@@ -62,18 +56,6 @@ declare namespace __WebpackModuleApi {
       VUE_APP_VERSION_CHECK_TIME: string;
       /** 用户信息轮询间隔 */
       VUE_APP_USER_INFO_UPDATE_TIME: string;
-      /**
-       * ```
-       * 金额显示对齐风格
-       * 除了右对齐，其它是凑数的
-       * 不让小数点对齐的对齐方式，都不是严谨的金额数值显示方式
-       * ```
-       * @prop {string} center 居中
-       * @prop {string} right 右对齐
-       */
-      VUE_APP_MONEY_ALIGN_STYLE: 'center' | 'right' | 'left';
-      /** 公司名称(备案主体) */
-      VUE_APP_COMPANY_NAME: string;
       /** 备案号 */
       VUE_APP_ICP_NO: string;
     };

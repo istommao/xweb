@@ -1,31 +1,33 @@
 <template>
-  <h1>123123{{ msg }}</h1>
+  <h1>{{ msg }}</h1>
   <button @click="inCrement"> count is: </button>
   <p>{{ count }}</p>
 </template>
 
 <script>
-  import { defineComponent, computed } from 'vue'
-  import { useStore } from 'vuex'
-  import { key } from '../store'
+import { defineComponent, computed } from 'vue'
+import { useStore } from 'vuex'
+import { key } from '@/store'
 
-  export default defineComponent({
-    name: 'HelloWorld',
-    props: {
-      msg: {
-        type: String,
-        default: ''
-      }
-    },
-    setup() {
-      const store = useStore(key)
-
-      const count = computed(() => store.state.count)
-
-      return {
-        count,
-        inCrement: () => store.commit('increment')
-      }
+export default defineComponent({
+  name: 'HelloWorld',
+  props: {
+    msg: {
+      type: String,
+      default: ''
     }
-  })
+  },
+  setup() {
+    const store = useStore(key)
+
+    const count = computed(() => store.state.count)
+
+    const inCrement = () => store.commit('increment')
+
+    return {
+      count,
+      inCrement
+    }
+  }
+})
 </script>
