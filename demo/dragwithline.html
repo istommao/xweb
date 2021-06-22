@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OpenFlow UI DEMO</title>
+    <style>
+    body {
+        /*background: #F4F7FB;*/
+        background: #fff;
+        margin: 0;
+        padding:  0;
+          background-size: 50px 50px;
+  background-image: linear-gradient(to right, #eeeefe 1px, transparent 1px),
+    linear-gradient(to bottom, #eeeefe 1px, transparent 1px);
+    }
+    div {
+        margin: 0;
+        padding: 0;
+    }
+
+
+    .CardNode {
+         position: absolute;
+        width: 250px;
+        height: 50px;
+        background: #fff;
+        /*box-shadow: 0 2px 5px rgba(180, 195, 255, .3);*/
+        box-shadow: 0 0.25em 1em -0.125em rgb(0 0 0 / 10%), 0 0 0 1px rgb(0 0 0 / 2%);
+
+        -webkit-box-align: center;
+        align-items: center;
+        padding: 15px 20px;
+        border-radius: 4px;
+        cursor: pointer;
+        border: 1px solid transparent;
+        font-size:  14px;
+        touch-action: none;
+        user-select: none;
+        transform: translate(0px, 0px);
+
+    }
+
+        .NodeTitle {
+            font-weight: bold;
+             cursor: move;
+        }
+        .NodeDesc {
+            color: #BDBDBD;
+            font-size: 12px;
+        }
+        #CardBox {
+            margin: 0 auto;
+            width: 100%;
+            height: 90vh;
+            padding: 1em;
+        }
+        #mainContainer {
+           padding: 0 1em;
+        }
+    </style>
+</head>
+<body>
+    <div id="mainContainer">
+        <div id="CardBox">
+            <div class="CardNode" id="item_left">
+                <div class="NodeTitle">Web</div>
+                <div class="NodeDesc">36% of Segment A</div>
+            </div>
+
+            <div class="CardNode" id="item_right" style="left: 500px">
+                <div class="NodeTitle">Web2</div>
+                <div class="NodeDesc">123</div>
+            </div>
+        </div>
+    </div>
+  <script src="https://unpkg.com/interactjs/dist/interact.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jsplumb@2.8.0/dist/js/jsplumb.min.js"></script>
+    <script>
+        // target elements with the "draggable" class
+        // interact('.CardNode')
+        //   .draggable({
+        //     // enable inertial throwing
+        //     inertia: true,
+        //     // keep the element within the area of it's parent
+        //     modifiers: [
+        //       interact.modifiers.restrictRect({
+        //         restriction: 'parent',
+        //         endOnly: true
+        //       })
+        //     ],
+        //     // enable autoScroll
+        //     autoScroll: true,
+
+        //     listeners: {
+        //       // call this function on every dragmove event
+        //       move: dragMoveListener,
+        //     }
+        //   })
+
+        // function dragMoveListener (event) {
+        //   var target = event.target
+        //   // keep the dragged position in the data-x/data-y attributes
+        //   var x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx
+        //   var y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy
+
+        //   // translate the element
+        //   target.style.transform = 'translate(' + x + 'px, ' + y + 'px)'
+
+        //   // update the posiion attributes
+        //   target.setAttribute('data-x', x)
+        //   target.setAttribute('data-y', y)
+        // }
+
+        // // this function is used later in the resizing and gesture demos
+        // window.dragMoveListener = dragMoveListener
+
+        /* global jsPlumb */
+        jsPlumb.ready(function () {
+          var common = {
+            endpoint: 'Rectangle',
+            connector: ['Bezier'],
+            anchor: ['Left', 'Right']
+          }
+
+            var common = {
+                isSource: true,
+                isTarget: true,
+                connector: 'Straight',
+                endpoint: 'Dot',
+                paintStyle: {
+                  fill: 'white',
+                  outlineStroke: 'blue',
+                  strokeWidth: 3
+                },
+                hoverPaintStyle: {
+                  outlineStroke: 'lightblue'
+                },
+                connectorStyle: {
+                  outlineStroke: 'green',
+                  strokeWidth: 1
+                },
+                connectorHoverStyle: {
+                  strokeWidth: 2
+                }
+              }
+
+          jsPlumb.connect({
+            source: 'item_left',
+            target: 'item_right',
+            paintStyle: { stroke: '#C69CEE', strokeWidth: 2 },
+            endpointStyle: { fill: '#C69CEE', outlineStroke: '#ececec', outlineWidth: 1 },
+            overlays: [ ['Arrow', { width: 12, length: 12, location: 0.5 }] ]
+          }, common)
+
+          jsPlumb.draggable('item_left', {containment: 'parent',  grid: [30, 30]})
+          jsPlumb.draggable('item_right', {containment: 'parent', grid: [30, 30]})
+        })
+    </script>
+</body>
+</html>
+
