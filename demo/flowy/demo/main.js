@@ -1,4 +1,21 @@
 document.addEventListener("DOMContentLoaded", function(){
+    var leftCard = document.getElementById('leftcard');
+    var canvasCard = document.getElementById("canvas");
+
+    var closeBtn = document.getElementById('closecard');
+    closeBtn.addEventListener("click", function(){
+        if (leftCard.style.left === '-361px') {
+            leftCard.style.left = "0";
+            canvasCard.style.left = '361px';
+            canvasCard.style.width = 'calc(100% - 361px)';
+        } else {
+            leftCard.style.left = "-361px";
+            canvasCard.style.left = '0';
+            canvasCard.style.width = '100%';
+        }
+
+    });
+
     var rightcard = false;
     var tempblock;
     var tempblock2;
