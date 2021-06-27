@@ -157,6 +157,7 @@ var flowy = function(canvas, grab, release, snapping, rearrange, spacing_x, spac
         }
 
         flowy.endDrag = function(event) {
+            // debugger
             if (event.which != 3 && (active || rearrange)) {
                 dragblock = false;
                 blockReleased();

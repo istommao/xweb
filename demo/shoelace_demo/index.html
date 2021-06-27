@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>shoelace</title>
+    <link rel="stylesheet" href="./base.css">
+</head>
+<body>
+    <div id="mainContainer">
+    <h2>Alert</h2>
+        <sl-alert open>
+      <sl-icon slot="icon" name="info-circle"></sl-icon>
+      This is a standard alert. You can customize its content and even the icon.
+    </sl-alert>
+    <h2>Avatar</h2>
+    <sl-avatar
+  image="https://images.unsplash.com/photo-1529778873920-4da4926a72c2?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80"
+  alt="Gray tabby kitten looking down"
+></sl-avatar>
+    <h2>Badge</h2>
+    <sl-badge type="primary">Primary</sl-badge>
+<sl-badge type="success">Success</sl-badge>
+<sl-badge type="info">Info</sl-badge>
+<sl-badge type="warning">Warning</sl-badge>
+<sl-badge type="danger">Danger</sl-badge>
+<h2>Button</h2>
+<sl-button type="default">Default</sl-button>
+<sl-button type="primary">Primary</sl-button>
+<sl-button type="success">Success</sl-button>
+<sl-button type="info">Info</sl-button>
+<sl-button type="warning">Warning</sl-button>
+<sl-button type="danger">Danger</sl-button>
+
+<div>Card</div>
+<sl-card class="card-image" style="width:300px" >
+  <img 
+    slot="image" 
+    src="https://images.unsplash.com/photo-1547191783-94d5f8f6d8b1?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=400&q=80" 
+    alt="A kitten walks towards camera on top of pallet."
+  >
+  This is a kitten, but not just any kitten. This kitten likes walking along pallets.
+</sl-card>
+<h2>CheckBox</h2>
+<sl-checkbox indeterminate>Indeterminate</sl-checkbox>
+
+<h2>Color Picker</h2>
+<sl-color-picker inline></sl-color-picker>
+
+<h2>Dialog</h2>
+<sl-dialog label="Dialog" class="dialog-focus">
+  <sl-input placeholder="I will have focus when the dialog is opened"></sl-input>
+  <sl-button slot="footer" type="primary">Close</sl-button>
+</sl-dialog>
+
+<sl-button>Open Dialog</sl-button>
+
+<script>
+  const dialog = document.querySelector('.dialog-focus');
+  const input = dialog.querySelector('sl-input');
+  const openButton = dialog.nextElementSibling;
+  const closeButton = dialog.querySelector('sl-button[slot="footer"]');
+
+  openButton.addEventListener('click', () => dialog.show());
+  closeButton.addEventListener('click', () => dialog.hide());
+
+  dialog.addEventListener('sl-initial-focus', event => {
+    event.preventDefault();
+    input.focus({ preventScroll: true });
+  });
+</script>
+
+
+<h2>Drawer</h2>
+<sl-drawer label="Drawer" class="drawer-overview">
+  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+  <sl-button slot="footer" type="primary">Close</sl-button>
+</sl-drawer>
+
+<sl-button>Open Drawer</sl-button>
+
+<script>
+  const drawer = document.querySelector('.drawer-overview');
+  const openButtondrawer = drawer.nextElementSibling;
+  const closeButtondrawer = drawer.querySelector('sl-button[type="primary"]');
+
+  openButtondrawer.addEventListener('click', () => drawer.show());
+  closeButtondrawer.addEventListener('click', () => drawer.hide());
+</script>
+
+
+<h2>Dropdown</h2>
+<div class="dropdown-selection-alt">
+  <sl-dropdown>
+    <sl-button slot="trigger" caret>Edit</sl-button>
+    <sl-menu>
+      <sl-menu-item value="cut">Cut</sl-menu-item>
+      <sl-menu-item value="copy">Copy</sl-menu-item>
+      <sl-menu-item value="paste">Paste</sl-menu-item>
+    </sl-menu>
+  </sl-dropdown>
+</div>
+
+<script>
+  const container = document.querySelector('.dropdown-selection-alt');
+  const cut = container.querySelector('sl-menu-item[value="cut"]');
+  const copy = container.querySelector('sl-menu-item[value="copy"]');
+  const paste = container.querySelector('sl-menu-item[value="paste"]');
+
+  cut.addEventListener('click', () => console.log('cut'));
+  copy.addEventListener('click', () => console.log('copy'));
+  paste.addEventListener('click', () => console.log('paste'));
+</script>
+
+
+<h2>Form</h2>
+<sl-form class="form-overview">
+  <sl-input name="name" type="text" label="Name"></sl-input>
+  <br>
+  <sl-select name="favorite" label="Select your favorite">
+    <sl-menu-item value="birds">Birds</sl-menu-item>
+    <sl-menu-item value="cats">Cats</sl-menu-item>
+    <sl-menu-item value="dogs">Dogs</sl-menu-item>
+  </sl-select>
+  <br>
+  <sl-checkbox name="agree" value="yes">
+    I totally agree
+  </sl-checkbox>
+  <br><br>
+  <sl-button submit>Submit</sl-button>
+</sl-form>
+
+<script>
+  const form = document.querySelector('.form-overview');
+
+  // Watch for the slSubmit event
+  form.addEventListener('sl-submit', event => {
+    const formData = event.detail.formData;
+    let output = '';
+
+    //
+    // Example 1: Post data to a server and wait for a JSON response
+    //
+    fetch('https://jsonplaceholder.typicode.com/posts', {
+      method: 'POST',
+      body: formData
+    })
+    .then(response => response.json())
+    .then(result => {
+      console.log('Success:', result);
+    })
+    .catch(error => {
+      console.error('Error:', error);
+    });
+
+    //
+    // Example 2: Output all form control names + values
+    //
+    for (const entry of formData.entries()) {
+      output += `${entry[0]}: ${entry[1]}\n`;
+    }
+    alert(output);
+
+    //
+    // Example 3: Get all form controls that were serialized as 
+    // an array of HTML elements
+    //
+    console.log(event.detail.formControls);
+  });
+</script>
+
+
+<h2>Image Comparer</h2>
+<sl-image-comparer>
+  <img slot="before" src="https://images.unsplash.com/photo-1517331156700-3c241d2b4d83?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=80&sat=-100&bri=-5" alt="Grayscale version of kittens in a basket looking around.">
+  <img slot="after" src="https://images.unsplash.com/photo-1517331156700-3c241d2b4d83?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=80" alt="Color version of kittens in a basket looking around.">
+</sl-image-comparer>
+
+
+<h2>Skeleton</h2>
+<div class="skeleton-overview">
+  <header>
+    <sl-skeleton></sl-skeleton>
+    <sl-skeleton></sl-skeleton>
+  </header>
+
+  <sl-skeleton></sl-skeleton>
+  <sl-skeleton></sl-skeleton>
+  <sl-skeleton></sl-skeleton>
+</div>
+
+<style>
+  .skeleton-overview header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
+  }
+
+  .skeleton-overview header sl-skeleton:last-child {
+    flex: 0 0 auto;
+    width: 30%;
+  }
+
+  .skeleton-overview sl-skeleton {
+    margin-bottom: 1rem;
+  }
+
+  .skeleton-overview sl-skeleton:nth-child(1) {
+    float: left;
+    width: 3rem;
+    height: 3rem;
+    margin-right: 1rem;
+    vertical-align: middle;
+  }
+
+  .skeleton-overview sl-skeleton:nth-child(3) {
+    width: 95%;
+  }
+
+  .skeleton-overview sl-skeleton:nth-child(4) {
+    width: 80%;
+  }
+</style>
+
+<h2>Tag</h2>
+
+<sl-tag type="primary">Primary</sl-tag>
+<sl-tag type="success">Success</sl-tag>
+<sl-tag type="info">Info</sl-tag>
+<sl-tag type="warning">Warning</sl-tag>
+<sl-tag type="danger">Danger</sl-tag>
+
+
+<h2>Textarea</h2>
+<sl-textarea rows="2"></sl-textarea>
+
+
+
+<h2>Tooltips</h2>
+<sl-tooltip content="This is a tooltip">
+  <sl-button>Hover Me</sl-button>
+</sl-tooltip>
+</div>
+    <script type="module" src="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.0.0-beta.44/dist/shoelace.js"></script>
+</body>
+</html>

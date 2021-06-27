@@ -57,6 +57,7 @@ document.addEventListener("DOMContentLoaded", function(){
         }
         return true;
     }
+
     function drag(block) {
         block.classList.add("blockdisabled");
         tempblock2 = block;
@@ -114,7 +115,7 @@ var doneTouch = function (event) {
             document.getElementById("properties").classList.add("expanded");
             document.getElementById("propwrap").classList.add("itson");
             tempblock.classList.add("selectedblock");
-       } 
+       }
     }
 }
 addEventListener("mousedown", beginTouch, false);
