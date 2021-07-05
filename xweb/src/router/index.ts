@@ -16,6 +16,11 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import('@/modules/About.vue')
   },
   {
+    path: '/codemirror',
+    name: 'codemirror',
+    component: () => import('@/modules/CodeMirrorEditor.vue')
+  },
+  {
     path: '/editor',
     name: 'editor',
     component: () => import('@/modules/editor.vue')

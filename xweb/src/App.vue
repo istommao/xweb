@@ -15,7 +15,11 @@
           </div>
         </el-aside>
         <el-main>
-          <router-view />
+          <div style="width: 100%; height: 60vh">
+            <div class="node-view-background">
+              <router-view />
+            </div>
+          </div>
         </el-main>
       </el-container>
     </el-container>
@@ -27,9 +31,21 @@ body {
   margin: 0;
   padding: 0;
 }
+div {
+  padding: 0;
+  margin: 0;
+}
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+.node-view-background {
+  position: absolute;
+  width: 80%;
+  height: 60vh;
+  background-size: 50px 50px;
+  background-image: linear-gradient(to right, #eeeefe 1px, transparent 1px),
+    linear-gradient(to bottom, #eeeefe 1px, transparent 1px);
 }
 </style>
