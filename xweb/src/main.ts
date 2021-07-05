@@ -3,6 +3,7 @@ import { store, key } from './store'
 import router from './router'
 import {
   ElButton,
+  ElInput,
   ElSelect,
   ElHeader,
   ElAside,
@@ -18,6 +19,7 @@ import 'element-plus/lib/theme-chalk/index.css'
 
 const app = createApp(App)
 
+app.component(ElInput.name, ElInput)
 app.component(ElMenu.name, ElMenu)
 app.component(ElSubmenu.name, ElSubmenu)
 app.component(ElMenuItem.name, ElMenuItem)
